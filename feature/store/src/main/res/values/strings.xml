@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_store_title">Store</string>
+    <string name="feature_store_loading">Loading…</string>
+</resources>

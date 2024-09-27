@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_welcome_title">Welcome</string>
+    <string name="feature_welcome_loading">Loading…</string>
+    <string name="feature_welcome_top_app_bar_action_icon_description">Welcome</string>
+</resources>
