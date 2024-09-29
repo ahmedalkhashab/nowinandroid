@@ -25,7 +25,7 @@
         <profileable android:shell="true" tools:targetApi="q" />
 
         <activity
-            android:name="com.google.samples.apps.demo.MainEntryActivity"
+            android:name="com.google.samples.apps.demo.LandingEntryActivity"
             android:exported="true"
             android:theme="@style/CoreUiTheme.AppDemo">
             <intent-filter>
