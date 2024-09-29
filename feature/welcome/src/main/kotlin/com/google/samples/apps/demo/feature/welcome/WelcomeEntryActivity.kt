@@ -4,10 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.navigation.compose.*
+import com.google.samples.apps.demo.feature.home.ui.navigation.HomeRoute
+import com.google.samples.apps.demo.feature.home.ui.navigation.homeScreen
+import com.google.samples.apps.demo.feature.lineHub.ui.navigation.lineHubScreen
+import com.google.samples.apps.demo.feature.more.ui.navigation.moreScreen
 import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
-import com.google.samples.apps.demo.feature.welcome.ui.WelcomeScreen
+import com.google.samples.apps.demo.feature.store.ui.explore.navigation.storeScreen
+import com.google.samples.apps.demo.feature.welcome.ui.component.BottomNavigationBar
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -16,7 +25,7 @@ import javax.inject.Inject
 class WelcomeEntryActivity : ComponentActivity() {
 
     @Inject
-    lateinit var coordinator: StoreNavigationEventListener
+    lateinit var coordinatorStore: StoreNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +35,46 @@ class WelcomeEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            val activity = this@WelcomeEntryActivity
+            val navController = rememberNavController()
             CompositionLocalProvider {
                 NiaTheme {
-                    WelcomeScreen(this@WelcomeEntryActivity, coordinator)
+                    Scaffold(
+                        bottomBar = {
+                            val currentRoute =
+                                navController.currentBackStackEntryAsState().value?.destination?.route
+                            BottomNavigationBar(currentRoute) { route ->
+                                navController.navigate(route) {
+                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        },
+                    ) { innerPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = HomeRoute,
+                            modifier = Modifier.padding(innerPadding),
+                        ) {
+                            homeScreen {
+
+                            }
+                            storeScreen { event ->
+                                coordinatorStore.onTriggerNavigationEvent(
+                                    activity = activity,
+                                    navController = navController,
+                                    event = event
+                                )
+                            }
+                            lineHubScreen {
+
+                            }
+                            moreScreen {
+
+                            }
+                        }
+                    }
                 }
             }
         }
