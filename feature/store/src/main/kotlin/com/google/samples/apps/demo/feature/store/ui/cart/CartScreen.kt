@@ -14,6 +14,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.samples.apps.demo.feature.store.StoreNavigationEvent
+import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnProceedToPayment
 import com.google.samples.apps.demo.feature.store.ui.cart.component.CartItem
 import com.google.samples.apps.nowinandroid.core.model.data.Product
 
@@ -21,7 +23,7 @@ import com.google.samples.apps.nowinandroid.core.model.data.Product
 fun CartScreen(
     modifier: Modifier = Modifier.fillMaxSize(),
     viewModel: CartViewModel = hiltViewModel(),
-    onNavigation: () -> Unit
+    onNavigation: (StoreNavigationEvent) -> Unit
 ) {
     CartContent(modifier, viewModel.getCartItems(), onNavigation)
 }
@@ -30,7 +32,7 @@ fun CartScreen(
 internal fun CartContent(
     modifier: Modifier = Modifier,
     productsList: List<Product>,
-    onNavigation: () -> Unit
+    onNavigation: (StoreNavigationEvent) -> Unit
 ) {
     Column(modifier = modifier) {
         Text(
@@ -51,7 +53,7 @@ internal fun CartContent(
             modifier = Modifier.padding(16.dp)
         )
         Button(
-            onClick = { onNavigation() },
+            onClick = { onNavigation(OnProceedToPayment) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)

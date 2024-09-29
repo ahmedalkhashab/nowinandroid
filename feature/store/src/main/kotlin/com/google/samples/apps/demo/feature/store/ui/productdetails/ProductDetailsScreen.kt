@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.google.samples.apps.demo.feature.store.StoreNavigationEvent
+import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnCartClicked
 import com.google.samples.apps.nowinandroid.core.model.data.Product
 
 @Composable
@@ -22,7 +24,7 @@ fun ProductDetailsScreen(
     productId: Long?,
     modifier: Modifier = Modifier.fillMaxSize(),
     viewModel: ProductDetailsViewModel = hiltViewModel(),
-    onNavigation: (Product) -> Unit
+    onNavigation: (StoreNavigationEvent) -> Unit
 ) {
     val product = viewModel.getProduct(productId)
     if (product != null) ProductDetailsContent(product, modifier, onNavigation)
@@ -33,7 +35,7 @@ fun ProductDetailsScreen(
 internal fun ProductDetailsContent(
     product: Product,
     modifier: Modifier = Modifier,
-    onNavigation: (Product) -> Unit
+    onNavigation: (StoreNavigationEvent) -> Unit
 ) {
     Column(modifier = modifier.padding(16.dp)) {
         Image(
@@ -55,7 +57,7 @@ internal fun ProductDetailsContent(
             Text("Add to Cart")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { onNavigation(product) }) {
+        Button(onClick = { onNavigation(OnCartClicked) }) {
             Text("Open Cart")
         }
     }

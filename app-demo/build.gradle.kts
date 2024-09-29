@@ -73,6 +73,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.appCoordinator)
+
     implementation(projects.feature.welcome)
     implementation(projects.feature.authenticator)
     implementation(projects.feature.store)

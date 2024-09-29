@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object LineHubRoute
 
-fun NavController.navigateToLineHub(navOptions: NavOptions? = null) = navigate(route = LineHubRoute, navOptions)
+fun NavController.navigateToLineHubScreen(navOptions: NavOptions? = null) = navigate(route = LineHubRoute, navOptions)
 
 fun NavGraphBuilder.lineHubScreen(onNavigation: (String) -> Unit) {
     composable<LineHubRoute> {

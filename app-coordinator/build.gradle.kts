@@ -37,6 +37,9 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.notifications)
 
+    implementation(libs.javax.inject)
+    implementation(libs.androidx.navigation.compose)
+
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.robolectric)
     testImplementation(projects.core.testing)

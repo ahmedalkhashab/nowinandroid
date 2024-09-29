@@ -6,12 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
+import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
 import com.google.samples.apps.demo.feature.welcome.ui.WelcomeScreen
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WelcomeEntryActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var coordinator: StoreNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +28,7 @@ class WelcomeEntryActivity : ComponentActivity() {
         setContent {
             CompositionLocalProvider {
                 NiaTheme {
-                    WelcomeScreen(this@WelcomeEntryActivity)
+                    WelcomeScreen(this@WelcomeEntryActivity, coordinator)
                 }
             }
         }

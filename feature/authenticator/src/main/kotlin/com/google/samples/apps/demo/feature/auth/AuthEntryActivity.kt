@@ -35,22 +35,26 @@ class AuthEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            CompositionLocalProvider {
+                NiaTheme {
+                    val navController: NavHostController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = LoginRoute,
+                    ) {
+                        loginRouteScreen(
+                            onLoginClick = { userName, password -> /*navigator should send event here*/ },
+                            onRegisterClick = { navController.navigateToRegisterScreen() },
+                            onForgetPasswordClick = { navController.navigateToForgetPasswordScreen() },
+                        )
 
-            val navController: NavHostController = rememberNavController()
-            NavHost(
-                navController = navController,
-                startDestination = LoginRoute,
-            ) {
-                loginRouteScreen(
-                    onLoginClick = { userName, password -> /*navigator should send event here*/ },
-                    onRegisterClick = { navController.navigateToRegisterScreen() },
-                    onForgetPasswordClick = { navController.navigateToForgetPasswordScreen() },
-                )
+                        registerRouteScreen { userName, password -> navController.popBackStack() }
 
-                registerRouteScreen { userName, password -> navController.popBackStack() }
-
-                forgetPasswordRouteScreen { navController.popBackStack() }
+                        forgetPasswordRouteScreen { navController.popBackStack() }
+                    }
+                }
             }
         }
     }
+
 }

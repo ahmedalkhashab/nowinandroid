@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object MoreRoute
 
-fun NavController.navigateToMore(navOptions: NavOptions? = null) = navigate(route = MoreRoute, navOptions)
+fun NavController.navigateToMoreScreen(navOptions: NavOptions? = null) = navigate(route = MoreRoute, navOptions)
 
 fun NavGraphBuilder.moreScreen(onNavigation: (String) -> Unit) {
     composable<MoreRoute> {

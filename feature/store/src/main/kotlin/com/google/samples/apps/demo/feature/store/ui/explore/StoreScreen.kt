@@ -5,6 +5,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.samples.apps.demo.feature.store.StoreNavigationEvent
+import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnProductItemClicked
 import com.google.samples.apps.demo.feature.store.ui.explore.component.ProductItem
 import com.google.samples.apps.nowinandroid.core.model.data.Product
 
@@ -12,7 +14,7 @@ import com.google.samples.apps.nowinandroid.core.model.data.Product
 fun StoreScreen(
     modifier: Modifier = Modifier,
     viewModel: StoreViewModel = hiltViewModel(),
-    onNavigation: (Long) -> Unit
+    onNavigation: (StoreNavigationEvent) -> Unit
 ) {
     StoreContent(
         modifier = modifier,
@@ -25,12 +27,12 @@ fun StoreScreen(
 internal fun StoreContent(
     modifier: Modifier = Modifier,
     productsList: List<Product>,
-    onNavigation: (Long) -> Unit,
+    onNavigation: (StoreNavigationEvent) -> Unit,
 ) {
     LazyColumn {
         items(productsList) { product ->
             ProductItem(product = product) {
-                onNavigation(product.id)
+                onNavigation(OnProductItemClicked(product.id))
             }
         }
     }

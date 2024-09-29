@@ -11,14 +11,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.google.samples.apps.demo.feature.store.ui.cart.navigation.CartRoute
 import com.google.samples.apps.demo.feature.store.ui.cart.navigation.cartScreen
-import com.google.samples.apps.demo.feature.store.ui.cart.navigation.navigateToCart
 import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.ProductDetailsRoute
 import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.productDetailsScreen
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class StoreEntryActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var coordinator: StoreNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class StoreEntryActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val productId = intent.getStringExtra("productId")
         setContent {
+            val activity = this@StoreEntryActivity
             val navController = rememberNavController()
             CompositionLocalProvider {
                 NiaTheme {
@@ -38,8 +42,20 @@ class StoreEntryActivity : ComponentActivity() {
                         else CartRoute,
                         modifier = Modifier,
                     ) {
-                        productDetailsScreen { navController.navigateToCart() }
-                        cartScreen {}
+                        productDetailsScreen { event ->
+                            coordinator.onTriggerNavigationEvent(
+                                activity = activity,
+                                navController = navController,
+                                event = event
+                            )
+                        }
+                        cartScreen { event ->
+                            coordinator.onTriggerNavigationEvent(
+                                activity = activity,
+                                navController = navController,
+                                event = event
+                            )
+                        }
                     }
                 }
             }

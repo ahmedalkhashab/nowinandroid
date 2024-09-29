@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object AddPaymentMethodRoute
 
-fun NavController.navigateToAddPaymentMethodScreen() = navigate(route = AddPaymentMethodRoute)
+fun NavController.navigateToAddPaymentMethodScreen(navOptions: NavOptions? = null) = navigate(route = AddPaymentMethodRoute, navOptions = navOptions)
 
 fun NavGraphBuilder.addPaymentMethodScreen(onSavePaymentMethod: (String, String, String) -> Unit) {
     composable<AddPaymentMethodRoute>(

@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object LoginRoute
 
-fun NavController.navigateToLoginScreen(navOptions: NavOptions) = navigate(route = LoginRoute, navOptions)
+fun NavController.navigateToLoginScreen(navOptions: NavOptions? = null) = navigate(route = LoginRoute, navOptions)
 
 fun NavGraphBuilder.loginRouteScreen(onLoginClick: (String,String) -> Unit, onRegisterClick: () -> Unit,onForgetPasswordClick: () -> Unit) {
     composable<LoginRoute>(

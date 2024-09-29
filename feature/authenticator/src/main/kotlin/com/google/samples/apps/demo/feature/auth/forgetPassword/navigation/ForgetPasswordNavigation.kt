@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object ForgetPasswordRoute
 
-fun NavController.navigateToForgetPasswordScreen() = navigate(route = ForgetPasswordRoute)
+fun NavController.navigateToForgetPasswordScreen(navOptions: NavOptions? = null) = navigate(route = ForgetPasswordRoute, navOptions = navOptions)
 
 fun NavGraphBuilder.forgetPasswordRouteScreen(onForgetPasswordClick: () -> Unit) {
     composable<ForgetPasswordRoute>(
