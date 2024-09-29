@@ -15,6 +15,10 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.notifications)
 
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
+    implementation(libs.coil.kt.svg)
+
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.robolectric)
     testImplementation(projects.core.testing)

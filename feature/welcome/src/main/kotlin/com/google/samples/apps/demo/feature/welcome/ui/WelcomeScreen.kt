@@ -8,7 +8,7 @@ import androidx.navigation.compose.*
 import com.google.samples.apps.demo.feature.home.ui.HomeScreen
 import com.google.samples.apps.demo.feature.lineHub.ui.LineHubScreen
 import com.google.samples.apps.demo.feature.more.ui.MoreScreen
-import com.google.samples.apps.demo.feature.store.ui.StoreScreen
+import com.google.samples.apps.demo.feature.store.ui.explore.StoreScreen
 import com.google.samples.apps.demo.feature.welcome.ui.component.BottomNavigationBar
 
 @Composable
@@ -27,12 +27,15 @@ fun WelcomeScreen() {
         },
     ) { innerPadding ->
         NavHost(
-            navController,
+            navController = navController,
             startDestination = "home",
             modifier = Modifier.padding(innerPadding),
         ) {
             composable("home") { HomeScreen {} }
-            composable("store") { StoreScreen {} }
+            composable("store") { StoreScreen {
+                // todo - navigate to product details using coordinator
+                // navController.navigate("product_details/${product.id}")
+            } }
             composable("line_hub") { LineHubScreen {} }
             composable("more") { MoreScreen {} }
         }
