@@ -3,7 +3,6 @@ package com.google.samples.apps.demo.feature.store.ui.productdetails
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,7 @@ import com.google.samples.apps.nowinandroid.core.model.data.Product
 @Composable
 fun ProductDetailsScreen(
     productId: Long?,
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
     viewModel: ProductDetailsViewModel = hiltViewModel(),
     onNavigation: (StoreNavigationEvent) -> Unit
 ) {

@@ -2,7 +2,6 @@ package com.google.samples.apps.demo.feature.store.ui.cart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +20,7 @@ import com.google.samples.apps.nowinandroid.core.model.data.Product
 
 @Composable
 fun CartScreen(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
     viewModel: CartViewModel = hiltViewModel(),
     onNavigation: (StoreNavigationEvent) -> Unit
 ) {
