@@ -11,6 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.google.samples.apps.demo.feature.payment.addPaymentMethod.navigation.addPaymentMethodScreen
+import com.google.samples.apps.demo.feature.payment.addPaymentMethod.navigation.navigateToAddPaymentMethodScreen
+import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.SelectPaymentMethodRoute
+import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.navigateToSelectPaymentMethodScreen
+import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.selectPaymentMethodScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,13 +32,16 @@ class PaymentEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            Text(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentHeight(align = Alignment.CenterVertically),
-                textAlign = TextAlign.Center,
-                text = "Payment"
-            )
+            val navController: NavHostController = rememberNavController()
+            NavHost(
+                navController = navController,
+                startDestination = SelectPaymentMethodRoute,
+            ) {
+                selectPaymentMethodScreen(
+                    onAddPaymentMethod = {navController.navigateToAddPaymentMethodScreen()}
+                    , onCardSelectClick = {})
+                addPaymentMethodScreen(onSavePaymentMethod = {_,_,_ -> navController.popBackStack()})
+            }
         }
     }
 }
