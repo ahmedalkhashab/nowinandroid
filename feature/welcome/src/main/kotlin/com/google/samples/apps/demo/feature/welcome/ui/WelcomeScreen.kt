@@ -1,22 +1,30 @@
 package com.google.samples.apps.demo.feature.welcome.ui
 
+import android.content.Intent
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.*
-import com.google.samples.apps.demo.feature.home.ui.HomeScreen
-import com.google.samples.apps.demo.feature.lineHub.ui.LineHubScreen
-import com.google.samples.apps.demo.feature.more.ui.MoreScreen
-import com.google.samples.apps.demo.feature.store.ui.explore.StoreScreen
+import com.google.samples.apps.demo.feature.home.ui.navigation.homeScreen
+import com.google.samples.apps.demo.feature.home.ui.navigation.HomeRoute
+import com.google.samples.apps.demo.feature.lineHub.ui.navigation.lineHubScreen
+import com.google.samples.apps.demo.feature.lineHub.ui.navigation.LineHubRoute
+import com.google.samples.apps.demo.feature.more.ui.navigation.moreScreen
+import com.google.samples.apps.demo.feature.more.ui.navigation.MoreRoute
+import com.google.samples.apps.demo.feature.store.ui.explore.navigation.storeScreen
+import com.google.samples.apps.demo.feature.store.ui.explore.navigation.StoreRoute
+import com.google.samples.apps.demo.feature.store.StoreEntryActivity
 import com.google.samples.apps.demo.feature.welcome.ui.component.BottomNavigationBar
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(context: Context) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
-            val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+            val currentRoute =
+                navController.currentBackStackEntryAsState().value?.destination?.route
             BottomNavigationBar(currentRoute) { route ->
                 navController.navigate(route) {
                     popUpTo(navController.graph.startDestinationId) { saveState = true }
@@ -28,16 +36,26 @@ fun WelcomeScreen() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "home",
+            startDestination = HomeRoute,
             modifier = Modifier.padding(innerPadding),
         ) {
-            composable("home") { HomeScreen {} }
-            composable("store") { StoreScreen {
+            homeScreen {
+
+            }
+            storeScreen { productId->
                 // todo - navigate to product details using coordinator
-                // navController.navigate("product_details/${product.id}")
-            } }
-            composable("line_hub") { LineHubScreen {} }
-            composable("more") { MoreScreen {} }
+                context.startActivity(
+                    Intent(context, StoreEntryActivity::class.java).apply {
+                        putExtra("productId", productId.toString())
+                    },
+                )
+            }
+            lineHubScreen {
+
+            }
+            moreScreen {
+
+            }
         }
     }
 }

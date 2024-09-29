@@ -8,10 +8,12 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.samples.apps.demo.feature.store.ui.cart.CartScreen
-import com.google.samples.apps.demo.feature.store.ui.productdetails.ProductDetailsScreen
+import com.google.samples.apps.demo.feature.store.ui.cart.navigation.CartRoute
+import com.google.samples.apps.demo.feature.store.ui.cart.navigation.cartScreen
+import com.google.samples.apps.demo.feature.store.ui.cart.navigation.navigateToCart
+import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.ProductDetailsRoute
+import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.productDetailsScreen
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,23 +27,19 @@ class StoreEntryActivity : ComponentActivity() {
         // This also sets up the initial system bar style based on the platform theme
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        val productId = intent.getStringExtra("productId")
         setContent {
             val navController = rememberNavController()
             CompositionLocalProvider {
                 NiaTheme {
                     NavHost(
                         navController = navController,
-                        startDestination = "cart",
+                        startDestination = if (productId != null) ProductDetailsRoute(productId.toLong())
+                        else CartRoute,
                         modifier = Modifier,
                     ) {
-                        composable("product_details/{productId}") { backStackEntry ->
-                            val productId =
-                                backStackEntry.arguments?.getString("productId")?.toLong()
-                            ProductDetailsScreen(productId) {
-                                navController.navigate("cart")
-                            }
-                        }
-                        composable("cart") { CartScreen {} }
+                        productDetailsScreen { navController.navigateToCart() }
+                        cartScreen {}
                     }
                 }
             }

@@ -23,7 +23,7 @@ class WelcomeEntryActivity : ComponentActivity() {
         setContent {
             CompositionLocalProvider {
                 NiaTheme {
-                    WelcomeScreen()
+                    WelcomeScreen(this@WelcomeEntryActivity)
                 }
             }
         }
