@@ -13,7 +13,8 @@ interface PaymentNavigationEventListener {
 }
 
 sealed class PaymentNavigationEvent {
-    data object OnSavePaymentMethodClick : PaymentNavigationEvent()
     data object OnAddPaymentMethodClick : PaymentNavigationEvent()
-    data object OnConfirmPaymentClick : PaymentNavigationEvent()
+    data class OnPaymentCompleted(val paymentMethod: String) : PaymentNavigationEvent()
+
+    data object OnSavePaymentMethodClick : PaymentNavigationEvent()
 }

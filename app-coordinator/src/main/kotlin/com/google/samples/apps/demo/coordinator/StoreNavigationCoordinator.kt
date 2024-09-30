@@ -27,9 +27,9 @@ class StoreNavigationCoordinator @Inject constructor() : StoreNavigationEventLis
         event: StoreNavigationEvent
     ) {
         when (event) {
-            is OnProceedToPayment ->
+            is OnProceedToPayment -> {
                 launcher?.launch(Intent(activity, PaymentEntryActivity::class.java))
-
+            }
             is OnClearCart -> navController?.popBackStack()
 
             is OnContinueShopping -> {
