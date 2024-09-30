@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.Role
 
 @Composable
-fun SelectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onPaymentMethodSelected: (String) -> Unit
+fun SelectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onConfirmPayment: (String) -> Unit
 
 ) {
     val availablePaymentMethods: List<String> = listOf("Credit Card", "PayPal", "Google Pay", "Apple Pay")
@@ -45,7 +45,6 @@ fun SelectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onPaymentMethodSele
                             selected = (paymentMethod == selectedPaymentMethod),
                             onClick = {
                                 selectedPaymentMethod = paymentMethod
-                                onPaymentMethodSelected(paymentMethod)
                             },
                             role = Role.RadioButton
                         )
@@ -67,9 +66,12 @@ fun SelectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onPaymentMethodSele
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        Text("You have to pay your receipt with 2350 rayal")
+        Spacer(modifier = Modifier.height(24.dp))
+
         // Confirm Button, enabled only when a payment method is selected
         Button(
-            onClick = { selectedPaymentMethod?.let { onPaymentMethodSelected(it) } },
+            onClick = { selectedPaymentMethod?.let { onConfirmPayment(it) } },
             enabled = selectedPaymentMethod != null,
             modifier = Modifier.fillMaxWidth()
         ) {

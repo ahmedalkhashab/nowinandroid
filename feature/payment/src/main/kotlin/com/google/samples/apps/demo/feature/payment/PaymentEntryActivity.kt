@@ -1,9 +1,11 @@
 package com.google.samples.apps.demo.feature.payment
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.Snackbar
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
@@ -15,9 +17,11 @@ import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigati
 import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.selectPaymentMethodScreen
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
+import jakarta.inject.Inject
 
 @AndroidEntryPoint
 class PaymentEntryActivity : ComponentActivity() {
+    @Inject lateinit var coordinator: PaymentNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +39,17 @@ class PaymentEntryActivity : ComponentActivity() {
                         startDestination = SelectPaymentMethodRoute,
                     ) {
                         selectPaymentMethodScreen(
-                            onAddPaymentMethod = { navController.navigateToAddPaymentMethodScreen() },
-                            onCardSelectClick = {},
+                            onAddPaymentMethod = {
+                                coordinator.onTriggerNavigationEvent(activity = this@PaymentEntryActivity,navController = navController, event = PaymentNavigationEvent.OnAddPaymentMethodClick)
+                            },
+                            onConfirmPayment = {
+                                Toast.makeText(this@PaymentEntryActivity,"Payment success",Toast.LENGTH_SHORT).show()
+                                coordinator.onTriggerNavigationEvent(activity = this@PaymentEntryActivity,navController = navController, event = PaymentNavigationEvent.OnConfirmPaymentClick)
+                            },
                         )
-                        addPaymentMethodScreen(onSavePaymentMethod = { _, _, _ -> navController.popBackStack() })
+                        addPaymentMethodScreen(onSavePaymentMethod = { _, _, _ ->
+                            coordinator.onTriggerNavigationEvent(activity = this@PaymentEntryActivity,navController = navController, event = PaymentNavigationEvent.OnSavePaymentMethodClick)
+                            })
                     }
                 }
             }

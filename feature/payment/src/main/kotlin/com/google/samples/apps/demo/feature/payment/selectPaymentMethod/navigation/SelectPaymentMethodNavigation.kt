@@ -11,9 +11,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable data object SelectPaymentMethodRoute
 
-fun NavController.navigateToSelectPaymentMethodScreen(navOptions: NavOptions? = null) = navigate(route = SelectPaymentMethodRoute, navOptions = navOptions)
+fun NavController.navigateToSelectPaymentMethodScreen() = navigate(route = SelectPaymentMethodRoute)
 
-fun NavGraphBuilder.selectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onCardSelectClick: (String) -> Unit) {
+fun NavGraphBuilder.selectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onConfirmPayment: (String) -> Unit) {
     composable<SelectPaymentMethodRoute>(
         deepLinks = listOf(
             navDeepLink {
@@ -28,6 +28,6 @@ fun NavGraphBuilder.selectPaymentMethodScreen(onAddPaymentMethod: () -> Unit,onC
             },
         ),
     ) {
-        SelectPaymentMethodScreen(onAddPaymentMethod,onCardSelectClick)
+        SelectPaymentMethodScreen(onAddPaymentMethod,onConfirmPayment)
     }
 }
