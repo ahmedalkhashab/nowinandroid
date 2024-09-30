@@ -1,13 +1,11 @@
 package com.google.samples.apps.demo.feature.store
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.CompositionLocalProvider
@@ -40,18 +38,15 @@ class StoreEntryActivity : ComponentActivity() {
         setContent {
             val activity = this@StoreEntryActivity
             val navController = rememberNavController()
+            val launcher = rememberLauncherForActivityResult(StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) coordinator.onTriggerNavigationEvent(
+                    activity = activity,
+                    navController = navController,
+                    event = StoreNavigationEvent.OnPaymentSuccess,
+                )
+            }
             CompositionLocalProvider {
                 NiaTheme {
-                    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-                            if (result.resultCode == Activity.RESULT_OK) {
-                                //do something here
-                                coordinator.onTriggerNavigationEvent(
-                                    activity = activity,
-                                    navController = navController,
-                                    event = StoreNavigationEvent.OnPaymentSuccess,
-                                )
-                            }
-                        }
                     Scaffold { innerPadding ->
                         NavHost(
                             navController = navController,
@@ -61,17 +56,17 @@ class StoreEntryActivity : ComponentActivity() {
                         ) {
                             productDetailsScreen { event ->
                                 coordinator.onTriggerNavigationEvent(
-                                    launcher = launcher,
                                     activity = activity,
                                     navController = navController,
+                                    launcher = launcher,
                                     event = event,
                                 )
                             }
                             cartScreen { event ->
                                 coordinator.onTriggerNavigationEvent(
-                                    launcher = launcher,
                                     activity = activity,
                                     navController = navController,
+                                    launcher = launcher,
                                     event = event,
                                 )
                             }
