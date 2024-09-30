@@ -6,7 +6,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavHostController
 
 interface StoreNavigationEventListener {
-    fun onTriggerNavigationEvent(launcher: ActivityResultLauncher<Intent>?=null, activity: Activity, navController: NavHostController, event: StoreNavigationEvent)
+    fun onTriggerNavigationEvent(launcher: ActivityResultLauncher<Intent>?=null, activity: Activity, navController: NavHostController?=null, event: StoreNavigationEvent)
 }
 
 sealed class StoreNavigationEvent {
