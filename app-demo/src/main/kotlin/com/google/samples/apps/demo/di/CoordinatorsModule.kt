@@ -1,7 +1,9 @@
 package com.google.samples.apps.demo.di
 
+import com.google.samples.apps.demo.coordinator.AuthNavigationCoordinator
 import com.google.samples.apps.demo.coordinator.StoreNavigationCoordinator
 import com.google.samples.apps.demo.coordinator.WelcomeNavigationCoordinator
+import com.google.samples.apps.demo.feature.auth.AuthNavigationEventListener
 import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
 import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEventListener
 import dagger.Module
@@ -21,5 +23,9 @@ object CoordinatorsModule {
     @Provides
     @Singleton
     fun providesWelcomeNavigationCoordinator() : WelcomeNavigationEventListener = WelcomeNavigationCoordinator()
+
+    @Provides
+    @Singleton
+    fun providesAuthNavigationCoordinator() : AuthNavigationEventListener = AuthNavigationCoordinator()
 
 }

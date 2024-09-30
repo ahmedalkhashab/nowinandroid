@@ -55,7 +55,7 @@ class LandingEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val hasUserData = true // mock reading data from datastore
+        val hasUserData = false // mock reading data from datastore
         setContent {
             val clazz = when (hasUserData) {
                 false -> AuthEntryActivity::class.java

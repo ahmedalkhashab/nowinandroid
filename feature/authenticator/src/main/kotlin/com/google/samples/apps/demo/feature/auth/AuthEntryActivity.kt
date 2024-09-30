@@ -10,16 +10,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.google.samples.apps.demo.feature.auth.forgetPassword.navigation.forgetPasswordRouteScreen
-import com.google.samples.apps.demo.feature.auth.forgetPassword.navigation.navigateToForgetPasswordScreen
 import com.google.samples.apps.demo.feature.auth.login.navigation.LoginRoute
 import com.google.samples.apps.demo.feature.auth.login.navigation.loginRouteScreen
-import com.google.samples.apps.demo.feature.auth.register.navigation.navigateToRegisterScreen
 import com.google.samples.apps.demo.feature.auth.register.navigation.registerRouteScreen
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
+import jakarta.inject.Inject
 
 @AndroidEntryPoint
 class AuthEntryActivity : ComponentActivity() {
+
+    @Inject lateinit var coordinator: AuthNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,22 +30,35 @@ class AuthEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            val activity = this@AuthEntryActivity
+            val navController: NavHostController = rememberNavController()
             CompositionLocalProvider {
                 NiaTheme {
-                    val navController: NavHostController = rememberNavController()
                     NavHost(
                         navController = navController,
                         startDestination = LoginRoute,
                     ) {
-                        loginRouteScreen(
-                            onLoginClick = { userName, password -> /*navigator should send event here*/ },
-                            onRegisterClick = { navController.navigateToRegisterScreen() },
-                            onForgetPasswordClick = { navController.navigateToForgetPasswordScreen() },
-                        )
-
-                        registerRouteScreen { userName, password -> navController.popBackStack() }
-
-                        forgetPasswordRouteScreen { navController.popBackStack() }
+                        loginRouteScreen { event ->
+                            coordinator.onTriggerNavigationEvent(
+                                activity = activity,
+                                navController = navController,
+                                event = event,
+                            )
+                        }
+                        registerRouteScreen { event ->
+                            coordinator.onTriggerNavigationEvent(
+                                activity = activity,
+                                navController = navController,
+                                event = event,
+                            )
+                        }
+                        forgetPasswordRouteScreen { event ->
+                            coordinator.onTriggerNavigationEvent(
+                                activity = activity,
+                                navController = navController,
+                                event = event,
+                            )
+                        }
                     }
                 }
             }
