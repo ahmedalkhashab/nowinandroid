@@ -58,7 +58,6 @@ class StoreEntryActivity : ComponentActivity() {
                                 coordinator.onTriggerNavigationEvent(
                                     activity = activity,
                                     navController = navController,
-                                    launcher = launcher,
                                     event = event,
                                 )
                             }
