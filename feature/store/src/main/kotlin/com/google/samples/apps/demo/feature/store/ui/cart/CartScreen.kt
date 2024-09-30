@@ -24,7 +24,11 @@ fun CartScreen(
     viewModel: CartViewModel = hiltViewModel(),
     onNavigation: (StoreNavigationEvent) -> Unit
 ) {
-    CartContent(modifier, viewModel.getCartItems(), onNavigation)
+    CartContent(
+        modifier.padding(horizontal = 16.dp, vertical = 24.dp),
+        viewModel.getCartItems(),
+        onNavigation,
+    )
 }
 
 @Composable

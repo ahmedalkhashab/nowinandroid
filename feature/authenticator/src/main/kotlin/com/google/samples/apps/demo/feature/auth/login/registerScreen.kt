@@ -12,9 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(onLoginClick: (String, String) -> Unit,
+fun LoginScreen(
+    onLoginClick: (String, String) -> Unit,
     onRegisterClick: () -> Unit,
-    onForgetPasswordClick: () -> Unit) {
+    onForgetPasswordClick: () -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val isLoginEnabled by remember {

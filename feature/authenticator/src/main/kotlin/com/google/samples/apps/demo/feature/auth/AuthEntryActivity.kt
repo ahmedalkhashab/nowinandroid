@@ -4,16 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Text
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.core.view.WindowCompat
-import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
-import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -23,6 +15,8 @@ import com.google.samples.apps.demo.feature.auth.login.navigation.LoginRoute
 import com.google.samples.apps.demo.feature.auth.login.navigation.loginRouteScreen
 import com.google.samples.apps.demo.feature.auth.register.navigation.navigateToRegisterScreen
 import com.google.samples.apps.demo.feature.auth.register.navigation.registerRouteScreen
+import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AuthEntryActivity : ComponentActivity() {

@@ -26,7 +26,11 @@ fun ProductDetailsScreen(
     onNavigation: (StoreNavigationEvent) -> Unit
 ) {
     val product = viewModel.getProduct(productId)
-    if (product != null) ProductDetailsContent(product, modifier, onNavigation)
+    if (product != null) ProductDetailsContent(
+        product,
+        modifier.padding(horizontal = 16.dp, vertical = 24.dp),
+        onNavigation,
+    )
     else Text("Error: Product not found", style = MaterialTheme.typography.headlineLarge)
 }
 
@@ -36,7 +40,7 @@ internal fun ProductDetailsContent(
     modifier: Modifier = Modifier,
     onNavigation: (StoreNavigationEvent) -> Unit
 ) {
-    Column(modifier = modifier.padding(16.dp)) {
+    Column(modifier = modifier) {
         Image(
             painter = rememberAsyncImagePainter(product.imageUrl),
             contentDescription = product.name,
