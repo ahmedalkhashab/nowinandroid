@@ -26,11 +26,13 @@ class AuthNavigationCoordinator @Inject constructor() : AuthNavigationEventListe
         when (event) {
             OnForgetPasswordClick -> navController.navigateToForgetPasswordScreen()
             OnForgetPasswordCompleted -> navController.popBackStack()
+
             OnLoginClick -> navController.popBackStack()
             OnLoginCompleted -> {
                 activity.finish()
                 activity.startActivity(Intent(activity, WelcomeEntryActivity::class.java))
             }
+
             OnRegisterClick -> navController.navigateToRegisterScreen()
             OnRegisterCompleted -> {
                 activity.finish()

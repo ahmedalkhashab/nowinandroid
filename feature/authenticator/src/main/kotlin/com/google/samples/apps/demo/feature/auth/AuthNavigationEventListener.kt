@@ -15,9 +15,10 @@ interface AuthNavigationEventListener {
 sealed class AuthNavigationEvent {
     data object OnRegisterClick : AuthNavigationEvent()
     data object OnForgetPasswordClick : AuthNavigationEvent()
-    data object OnLoginClick : AuthNavigationEvent()
 
+    data object OnLoginClick : AuthNavigationEvent()
     data object OnLoginCompleted : AuthNavigationEvent()
+
     data object OnRegisterCompleted : AuthNavigationEvent()
     data object OnForgetPasswordCompleted : AuthNavigationEvent()
 }
