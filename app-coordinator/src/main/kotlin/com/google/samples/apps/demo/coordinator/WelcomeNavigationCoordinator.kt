@@ -15,7 +15,7 @@ class WelcomeNavigationCoordinator @Inject constructor() : WelcomeNavigationEven
 
     override fun onTriggerNavigationEvent(
         activity: Activity,
-        navController: NavHostController,
+        navController: NavHostController?,
         event: WelcomeNavigationEvent
     ) {
         when (event) {

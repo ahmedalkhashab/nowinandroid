@@ -7,7 +7,7 @@ interface AuthNavigationEventListener {
 
     fun onTriggerNavigationEvent(
         activity: Activity,
-        navController: NavHostController,
+        navController: NavHostController?,
         event: AuthNavigationEvent,
     )
 }

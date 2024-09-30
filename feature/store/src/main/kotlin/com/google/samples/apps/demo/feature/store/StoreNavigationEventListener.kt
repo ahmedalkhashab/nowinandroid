@@ -4,7 +4,11 @@ import android.app.Activity
 import androidx.navigation.NavHostController
 
 interface StoreNavigationEventListener {
-    fun onTriggerNavigationEvent(activity: Activity, navController: NavHostController, event: StoreNavigationEvent)
+    fun onTriggerNavigationEvent(
+        activity: Activity,
+        navController: NavHostController?,
+        event: StoreNavigationEvent,
+    )
 }
 
 sealed class StoreNavigationEvent {

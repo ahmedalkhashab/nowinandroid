@@ -20,20 +20,20 @@ class AuthNavigationCoordinator @Inject constructor() : AuthNavigationEventListe
 
     override fun onTriggerNavigationEvent(
         activity: Activity,
-        navController: NavHostController,
+        navController: NavHostController?,
         event: AuthNavigationEvent,
     ) {
         when (event) {
-            OnForgetPasswordClick -> navController.navigateToForgetPasswordScreen()
-            OnForgetPasswordCompleted -> navController.popBackStack()
+            OnForgetPasswordClick -> navController?.navigateToForgetPasswordScreen()
+            OnForgetPasswordCompleted -> navController?.popBackStack()
 
-            OnLoginClick -> navController.popBackStack()
+            OnLoginClick -> navController?.popBackStack()
             OnLoginCompleted -> {
                 activity.finish()
                 activity.startActivity(Intent(activity, WelcomeEntryActivity::class.java))
             }
 
-            OnRegisterClick -> navController.navigateToRegisterScreen()
+            OnRegisterClick -> navController?.navigateToRegisterScreen()
             OnRegisterCompleted -> {
                 activity.finish()
                 activity.startActivity(Intent(activity, WelcomeEntryActivity::class.java))

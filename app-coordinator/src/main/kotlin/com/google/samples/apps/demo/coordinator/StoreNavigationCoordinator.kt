@@ -20,14 +20,14 @@ class StoreNavigationCoordinator @Inject constructor() : StoreNavigationEventLis
 
     override fun onTriggerNavigationEvent(
         activity: Activity,
-        navController: NavHostController,
+        navController: NavHostController?,
         event: StoreNavigationEvent
     ) {
         when (event) {
             is OnProceedToPayment ->
                 activity.startActivity(Intent(activity, PaymentEntryActivity::class.java))
 
-            is OnClearCart -> navController.popBackStack()
+            is OnClearCart -> navController?.popBackStack()
 
             is OnContinueShopping -> {
                 if (activity is StoreEntryActivity) {
@@ -40,7 +40,7 @@ class StoreNavigationCoordinator @Inject constructor() : StoreNavigationEventLis
                 is WelcomeEntryActivity -> activity.startActivity(
                     Intent(activity, StoreEntryActivity::class.java)
                 )
-                is StoreEntryActivity -> navController.navigateToCartScreen()
+                is StoreEntryActivity -> navController?.navigateToCartScreen()
                 else -> {}
             }
 

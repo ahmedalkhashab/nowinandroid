@@ -16,9 +16,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.samples.apps.demo.MainActivityUiState.Loading
 import com.google.samples.apps.demo.MainActivityUiState.Success
+import com.google.samples.apps.demo.coordinator.landing.LandingNavigationEvent
+import com.google.samples.apps.demo.coordinator.landing.LandingNavigationEventListener
 import com.google.samples.apps.demo.feature.auth.AuthEntryActivity
 import com.google.samples.apps.demo.feature.welcome.WelcomeEntryActivity
 import dagger.hilt.android.AndroidEntryPoint
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -27,6 +30,7 @@ import kotlinx.coroutines.launch
 class LandingEntryActivity : ComponentActivity() {
 
     private val viewModel: LandingViewModel by viewModels()
+    @Inject lateinit var coordinator: LandingNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -55,14 +59,13 @@ class LandingEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val hasUserData = false // mock reading data from datastore
+        val userId: Long? = null // mock reading data from datastore
         setContent {
-            val clazz = when (hasUserData) {
-                false -> AuthEntryActivity::class.java
-                true -> WelcomeEntryActivity::class.java
-            }
-            startActivity(Intent(this, clazz))
-            finish()
+            coordinator.onTriggerNavigationEvent(
+                activity = this@LandingEntryActivity,
+                navController = null,
+                event = LandingNavigationEvent.OnUserDataFethed(userId)
+            )
         }
     }
 

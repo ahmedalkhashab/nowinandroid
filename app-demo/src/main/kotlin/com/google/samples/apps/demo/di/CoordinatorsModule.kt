@@ -1,8 +1,10 @@
 package com.google.samples.apps.demo.di
 
 import com.google.samples.apps.demo.coordinator.AuthNavigationCoordinator
+import com.google.samples.apps.demo.coordinator.LandingNavigationCoordinator
 import com.google.samples.apps.demo.coordinator.StoreNavigationCoordinator
 import com.google.samples.apps.demo.coordinator.WelcomeNavigationCoordinator
+import com.google.samples.apps.demo.coordinator.landing.LandingNavigationEventListener
 import com.google.samples.apps.demo.feature.auth.AuthNavigationEventListener
 import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
 import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEventListener
@@ -18,7 +20,11 @@ object CoordinatorsModule {
 
     @Provides
     @Singleton
-    fun providesStoreNavigationCoordinator() : StoreNavigationEventListener = StoreNavigationCoordinator()
+    fun providesLandingNavigationCoordinator() : LandingNavigationEventListener = LandingNavigationCoordinator()
+
+    @Provides
+    @Singleton
+    fun providesAuthNavigationCoordinator() : AuthNavigationEventListener = AuthNavigationCoordinator()
 
     @Provides
     @Singleton
@@ -26,6 +32,6 @@ object CoordinatorsModule {
 
     @Provides
     @Singleton
-    fun providesAuthNavigationCoordinator() : AuthNavigationEventListener = AuthNavigationCoordinator()
+    fun providesStoreNavigationCoordinator() : StoreNavigationEventListener = StoreNavigationCoordinator()
 
 }
