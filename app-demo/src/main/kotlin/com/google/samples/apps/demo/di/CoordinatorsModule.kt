@@ -13,31 +13,25 @@ import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEventListen
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class) // We Should use ActivityComponent::class
 object CoordinatorsModule {
 
-    @Provides
-    @Singleton
+    @Provides // Don't add @Singleton
     fun providesLandingNavigationCoordinator() : LandingNavigationEventListener = LandingNavigationCoordinator()
 
-    @Provides
-    @Singleton
+    @Provides // Don't add @Singleton
     fun providesAuthNavigationCoordinator() : AuthNavigationEventListener = AuthNavigationCoordinator()
 
-    @Provides
-    @Singleton
+    @Provides // Don't add @Singleton
     fun providesWelcomeNavigationCoordinator() : WelcomeNavigationEventListener = WelcomeNavigationCoordinator()
 
-    @Provides
-    @Singleton
+    @Provides // Don't add @Singleton
     fun providesStoreNavigationCoordinator() : StoreNavigationEventListener = StoreNavigationCoordinator()
 
-    @Provides
-    @Singleton
+    @Provides // Don't add @Singleton
     fun providesPaymentNavigationCoordinator() : PaymentNavigationEventListener = PaymentNavigationCoordinator()
 
 }

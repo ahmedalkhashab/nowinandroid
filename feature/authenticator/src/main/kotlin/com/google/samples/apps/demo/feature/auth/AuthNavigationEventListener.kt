@@ -1,15 +1,21 @@
 package com.google.samples.apps.demo.feature.auth
 
 import android.app.Activity
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavHostController
 
 interface AuthNavigationEventListener {
 
-    fun onTriggerNavigationEvent(
+    fun initialize(
         activity: Activity,
-        navController: NavHostController?,
-        event: AuthNavigationEvent,
+        launcher: ActivityResultLauncher<Intent>? = null,
+        navController: NavHostController?
     )
+
+    fun detectStartDestination(intent: Intent?): Any
+
+    fun onTriggerNavigationEvent(event: AuthNavigationEvent)
 }
 
 sealed class AuthNavigationEvent {

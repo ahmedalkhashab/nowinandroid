@@ -35,8 +35,11 @@ class WelcomeEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val activity = this@WelcomeEntryActivity
             val navController = rememberNavController()
+            coordinatorStore.initialize(
+                activity = this@WelcomeEntryActivity,
+                navController = navController
+            )
             CompositionLocalProvider {
                 NiaTheme {
                     Scaffold(
@@ -57,22 +60,10 @@ class WelcomeEntryActivity : ComponentActivity() {
                             startDestination = HomeRoute,
                             modifier = Modifier.padding(innerPadding),
                         ) {
-                            homeScreen {
-
-                            }
-                            storeScreen { event ->
-                                coordinatorStore.onTriggerNavigationEvent(
-                                    activity = activity,
-                                    navController = navController,
-                                    event = event
-                                )
-                            }
-                            lineHubScreen {
-
-                            }
-                            moreScreen {
-
-                            }
+                            homeScreen {}
+                            storeScreen { coordinatorStore.onTriggerNavigationEvent(event = it) }
+                            lineHubScreen {}
+                            moreScreen {}
                         }
                     }
                 }

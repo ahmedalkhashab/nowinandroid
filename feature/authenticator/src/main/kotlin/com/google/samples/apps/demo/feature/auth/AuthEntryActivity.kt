@@ -30,35 +30,20 @@ class AuthEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val activity = this@AuthEntryActivity
             val navController: NavHostController = rememberNavController()
+            coordinator.initialize(
+                activity = this@AuthEntryActivity,
+                navController = navController
+            )
             CompositionLocalProvider {
                 NiaTheme {
                     NavHost(
                         navController = navController,
                         startDestination = LoginRoute,
                     ) {
-                        loginRouteScreen { event ->
-                            coordinator.onTriggerNavigationEvent(
-                                activity = activity,
-                                navController = navController,
-                                event = event,
-                            )
-                        }
-                        registerRouteScreen { event ->
-                            coordinator.onTriggerNavigationEvent(
-                                activity = activity,
-                                navController = navController,
-                                event = event,
-                            )
-                        }
-                        forgetPasswordRouteScreen { event ->
-                            coordinator.onTriggerNavigationEvent(
-                                activity = activity,
-                                navController = navController,
-                                event = event,
-                            )
-                        }
+                        loginRouteScreen { coordinator.onTriggerNavigationEvent(event = it) }
+                        registerRouteScreen { coordinator.onTriggerNavigationEvent(event = it) }
+                        forgetPasswordRouteScreen { coordinator.onTriggerNavigationEvent(event = it) }
                     }
                 }
             }

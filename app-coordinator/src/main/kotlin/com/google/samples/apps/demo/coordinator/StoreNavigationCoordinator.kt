@@ -14,18 +14,36 @@ import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnPayment
 import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnProceedToPayment
 import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnProductItemClicked
 import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
+import com.google.samples.apps.demo.feature.store.ui.cart.navigation.CartRoute
 import com.google.samples.apps.demo.feature.store.ui.cart.navigation.navigateToCartScreen
+import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.ProductDetailsRoute
 import com.google.samples.apps.demo.feature.welcome.WelcomeEntryActivity
 import javax.inject.Inject
 
 class StoreNavigationCoordinator @Inject constructor() : StoreNavigationEventListener {
 
-    override fun onTriggerNavigationEvent(
+    private lateinit var activity: Activity
+    private var launcher: ActivityResultLauncher<Intent>? = null
+    private var navController: NavHostController? = null
+
+    override fun initialize(
         activity: Activity,
         launcher: ActivityResultLauncher<Intent>?,
         navController: NavHostController?,
-        event: StoreNavigationEvent
     ) {
+        this.activity = activity
+        this.launcher = launcher
+        this.navController = navController
+    }
+
+    override fun detectStartDestination(intent: Intent?): Any = when (intent) {
+        null -> CartRoute
+        else -> intent.getStringExtra("productId")?.let { productId ->
+            ProductDetailsRoute(productId.toLong())
+        } ?: run { CartRoute }
+    }
+
+    override fun onTriggerNavigationEvent(event: StoreNavigationEvent) {
         when (event) {
             is OnProceedToPayment ->
                 launcher?.launch(Intent(activity, PaymentEntryActivity::class.java))

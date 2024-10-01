@@ -27,9 +27,12 @@ android {
 }
 
 dependencies {
-    implementation(projects.feature.welcome)
     implementation(projects.feature.authenticator)
+    implementation(projects.feature.welcome)
+    implementation(projects.feature.home)
     implementation(projects.feature.store)
+    implementation(projects.feature.lineHub)
+    implementation(projects.feature.more)
     implementation(projects.feature.payment)
 
     implementation(libs.accompanist.permissions)

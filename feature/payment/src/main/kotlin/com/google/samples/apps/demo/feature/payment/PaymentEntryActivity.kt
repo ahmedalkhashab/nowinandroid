@@ -6,11 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
@@ -22,7 +18,6 @@ import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigati
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PaymentEntryActivity : ComponentActivity() {
@@ -37,38 +32,26 @@ class PaymentEntryActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val snackbarHostState = remember { SnackbarHostState() }
-            val scope = rememberCoroutineScope() // Initialize the scope
+            val navController: NavHostController = rememberNavController()
+            coordinator.initialize(
+                activity = this@PaymentEntryActivity,
+                navController = navController
+            )
             CompositionLocalProvider {
-                Scaffold(
-                    snackbarHost = { SnackbarHost(snackbarHostState) }
-                ) { innerPadding ->
+                Scaffold { innerPadding ->
                     NiaTheme {
-                        val navController: NavHostController = rememberNavController()
-                        val activity = this@PaymentEntryActivity
                         NavHost(
                             navController = navController,
                             startDestination = SelectPaymentMethodRoute,
                             modifier = Modifier.padding(innerPadding)
                         ) {
-                            selectPaymentMethodScreen { event ->
-                                coordinator.onTriggerNavigationEvent(
-                                    activity = activity,
-                                    navController = navController,
-                                    event = event,
-                                )
-                            }
-                            addPaymentMethodScreen { event ->
-                                coordinator.onTriggerNavigationEvent(
-                                    activity = activity,
-                                    navController = navController,
-                                    event = event,
-                                )
-                            }
+                            selectPaymentMethodScreen { coordinator.onTriggerNavigationEvent(event = it) }
+                            addPaymentMethodScreen { coordinator.onTriggerNavigationEvent(event = it) }
                         }
                     }
                 }
             }
         }
     }
+
 }

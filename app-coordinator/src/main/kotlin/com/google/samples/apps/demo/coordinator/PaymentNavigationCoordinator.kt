@@ -1,6 +1,8 @@
 package com.google.samples.apps.demo.coordinator
 
 import android.app.Activity
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavHostController
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnAddPaymentMethodClick
@@ -8,18 +10,31 @@ import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnPay
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnSavePaymentMethodClick
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEventListener
 import com.google.samples.apps.demo.feature.payment.addPaymentMethod.navigation.navigateToAddPaymentMethodScreen
+import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.SelectPaymentMethodRoute
 import javax.inject.Inject
 
 class PaymentNavigationCoordinator @Inject constructor() : PaymentNavigationEventListener {
 
-    override fun onTriggerNavigationEvent(
+    private lateinit var activity: Activity
+    private var launcher: ActivityResultLauncher<Intent>? = null
+    private var navController: NavHostController? = null
+
+    override fun initialize(
         activity: Activity,
-        navController: NavHostController,
-        event: PaymentNavigationEvent,
+        launcher: ActivityResultLauncher<Intent>?,
+        navController: NavHostController?,
     ) {
+        this.activity = activity
+        this.launcher = launcher
+        this.navController = navController
+    }
+
+    override fun detectStartDestination(intent: Intent?): Any = SelectPaymentMethodRoute
+
+    override fun onTriggerNavigationEvent(event: PaymentNavigationEvent) {
         when (event) {
-            is OnSavePaymentMethodClick -> navController.popBackStack()
-            is OnAddPaymentMethodClick -> navController.navigateToAddPaymentMethodScreen()
+            is OnSavePaymentMethodClick -> navController?.popBackStack()
+            is OnAddPaymentMethodClick -> navController?.navigateToAddPaymentMethodScreen()
             is OnPaymentCompleted -> {
                 // event.paymentMethod // Handle payment completion and result
                 activity.setResult(Activity.RESULT_OK)
@@ -28,4 +43,5 @@ class PaymentNavigationCoordinator @Inject constructor() : PaymentNavigationEven
 
         }
     }
+
 }

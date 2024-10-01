@@ -1,6 +1,5 @@
 package com.google.samples.apps.demo
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,8 +8,8 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.view.WindowCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,8 +17,6 @@ import com.google.samples.apps.demo.MainActivityUiState.Loading
 import com.google.samples.apps.demo.MainActivityUiState.Success
 import com.google.samples.apps.demo.coordinator.landing.LandingNavigationEvent
 import com.google.samples.apps.demo.coordinator.landing.LandingNavigationEventListener
-import com.google.samples.apps.demo.feature.auth.AuthEntryActivity
-import com.google.samples.apps.demo.feature.welcome.WelcomeEntryActivity
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.collect
@@ -61,9 +58,11 @@ class LandingEntryActivity : ComponentActivity() {
 
         val userId: Long? = null // mock reading data from datastore
         setContent {
-            coordinator.onTriggerNavigationEvent(
+            coordinator.initialize(
                 activity = this@LandingEntryActivity,
-                navController = null,
+                navController = null
+            )
+            coordinator.onTriggerNavigationEvent(
                 event = LandingNavigationEvent.OnUserDataFethed(userId)
             )
         }
