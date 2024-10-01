@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavHostController
-import com.google.samples.apps.demo.feature.home.ui.navigation.HomeRoute
+import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.HomeRoute
 import com.google.samples.apps.demo.feature.store.StoreEntryActivity
 import com.google.samples.apps.demo.feature.welcome.WelcomeEntryActivity
 import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent

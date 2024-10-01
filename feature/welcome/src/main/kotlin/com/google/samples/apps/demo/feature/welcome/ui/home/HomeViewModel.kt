@@ -1,4 +1,4 @@
-package com.google.samples.apps.demo.feature.home.ui
+package com.google.samples.apps.demo.feature.welcome.ui.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

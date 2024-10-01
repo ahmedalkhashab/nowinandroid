@@ -10,8 +10,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.*
-import com.google.samples.apps.demo.feature.home.ui.navigation.HomeRoute
-import com.google.samples.apps.demo.feature.home.ui.navigation.homeScreen
+import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.HomeRoute
+import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.homeScreen
 import com.google.samples.apps.demo.feature.lineHub.ui.navigation.lineHubScreen
 import com.google.samples.apps.demo.feature.more.ui.navigation.moreScreen
 import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
