@@ -1,10 +1,10 @@
-package com.google.samples.apps.demo.feature.lineHub.ui.navigation
+package com.google.samples.apps.demo.feature.welcome.ui.lineHub.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.google.samples.apps.demo.feature.lineHub.ui.LineHubScreen
+import com.google.samples.apps.demo.feature.welcome.ui.lineHub.LineHubScreen
 import kotlinx.serialization.Serializable
 
 @Serializable data object LineHubRoute

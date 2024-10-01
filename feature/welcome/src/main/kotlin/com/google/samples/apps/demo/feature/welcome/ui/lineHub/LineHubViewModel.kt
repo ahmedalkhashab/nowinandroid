@@ -1,4 +1,4 @@
-package com.google.samples.apps.demo.feature.lineHub.ui
+package com.google.samples.apps.demo.feature.welcome.ui.lineHub
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
