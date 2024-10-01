@@ -13,7 +13,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.HomeRoute
 import com.google.samples.apps.demo.feature.lineHub.ui.navigation.LineHubRoute
-import com.google.samples.apps.demo.feature.more.ui.navigation.MoreRoute
+import com.google.samples.apps.demo.feature.welcome.ui.more.navigation.MoreRoute
 import com.google.samples.apps.demo.feature.store.ui.explore.navigation.StoreRoute
 
 @Composable

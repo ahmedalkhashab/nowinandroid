@@ -1,4 +1,4 @@
-package com.google.samples.apps.demo.feature.more.ui
+package com.google.samples.apps.demo.feature.welcome.ui.more
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
