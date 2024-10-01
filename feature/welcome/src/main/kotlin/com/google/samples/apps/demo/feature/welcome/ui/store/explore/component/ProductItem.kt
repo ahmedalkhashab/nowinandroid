@@ -1,4 +1,4 @@
-package com.google.samples.apps.demo.feature.store.ui.explore.component
+package com.google.samples.apps.demo.feature.welcome.ui.store.explore.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

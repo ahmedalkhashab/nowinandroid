@@ -1,4 +1,4 @@
-package com.google.samples.apps.demo.feature.store.ui.explore
+package com.google.samples.apps.demo.feature.welcome.ui.store.explore
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,17 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.samples.apps.demo.feature.store.StoreNavigationEvent
-import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnCartClicked
-import com.google.samples.apps.demo.feature.store.StoreNavigationEvent.OnProductItemClicked
-import com.google.samples.apps.demo.feature.store.ui.explore.component.ProductItem
+import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent.OnCartClicked
+import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent.OnProductItemClicked
+import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent
+import com.google.samples.apps.demo.feature.welcome.ui.store.explore.component.ProductItem
 import com.google.samples.apps.nowinandroid.core.model.data.Product
 
 @Composable
 fun StoreScreen(
     modifier: Modifier = Modifier,
     viewModel: StoreViewModel = hiltViewModel(),
-    onNavigation: (StoreNavigationEvent) -> Unit
+    onNavigation: (WelcomeNavigationEvent) -> Unit
 ) {
     StoreContent(
         modifier = modifier
@@ -42,7 +42,7 @@ fun StoreScreen(
 internal fun StoreContent(
     modifier: Modifier = Modifier,
     productsList: List<Product>,
-    onNavigation: (StoreNavigationEvent) -> Unit,
+    onNavigation: (WelcomeNavigationEvent) -> Unit,
 ) {
     Column(modifier = modifier) {
         Row(

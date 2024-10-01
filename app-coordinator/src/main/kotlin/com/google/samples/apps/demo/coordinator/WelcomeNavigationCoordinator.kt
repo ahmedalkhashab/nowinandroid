@@ -6,7 +6,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavHostController
 import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.HomeRoute
 import com.google.samples.apps.demo.feature.store.StoreEntryActivity
-import com.google.samples.apps.demo.feature.welcome.WelcomeEntryActivity
 import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent
 import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent.OnCartClicked
 import com.google.samples.apps.demo.feature.welcome.WelcomeNavigationEvent.OnProductItemClicked
@@ -31,23 +30,16 @@ class WelcomeNavigationCoordinator @Inject constructor() : WelcomeNavigationEven
 
     override fun detectStartDestination(intent: Intent?): Any = HomeRoute
 
-    override fun onTriggerNavigationEvent(
-        activity: Activity,
-        navController: NavHostController?,
-        event: WelcomeNavigationEvent
-    ) {
+    override fun onTriggerNavigationEvent(event: WelcomeNavigationEvent) {
         when (event) {
-            is OnCartClicked -> if (activity is WelcomeEntryActivity) {
+            is OnCartClicked ->
                 activity.startActivity(Intent(activity, StoreEntryActivity::class.java))
-            }
 
-            is OnProductItemClicked -> if (activity is WelcomeEntryActivity) {
-                activity.startActivity(
-                    Intent(activity, StoreEntryActivity::class.java).apply {
-                        putExtra("productId", event.productId.toString())
-                    }
-                )
-            }
+            is OnProductItemClicked -> activity.startActivity(
+                Intent(activity, StoreEntryActivity::class.java).apply {
+                    putExtra("productId", event.productId.toString())
+                }
+            )
         }
     }
 

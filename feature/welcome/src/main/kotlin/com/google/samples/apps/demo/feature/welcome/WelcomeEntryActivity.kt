@@ -10,12 +10,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.*
-import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.HomeRoute
 import com.google.samples.apps.demo.feature.welcome.ui.home.navigation.homeScreen
 import com.google.samples.apps.demo.feature.welcome.ui.lineHub.navigation.lineHubScreen
 import com.google.samples.apps.demo.feature.welcome.ui.more.navigation.moreScreen
-import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
-import com.google.samples.apps.demo.feature.store.ui.explore.navigation.storeScreen
+import com.google.samples.apps.demo.feature.welcome.ui.store.explore.navigation.storeScreen
 import com.google.samples.apps.demo.feature.welcome.ui.component.BottomNavigationBar
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +23,7 @@ import javax.inject.Inject
 class WelcomeEntryActivity : ComponentActivity() {
 
     @Inject
-    lateinit var coordinatorStore: StoreNavigationEventListener
+    lateinit var coordinator: WelcomeNavigationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +34,7 @@ class WelcomeEntryActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             val navController = rememberNavController()
-            coordinatorStore.initialize(
+            coordinator.initialize(
                 activity = this@WelcomeEntryActivity,
                 navController = navController
             )
@@ -57,11 +55,11 @@ class WelcomeEntryActivity : ComponentActivity() {
                     ) { innerPadding ->
                         NavHost(
                             navController = navController,
-                            startDestination = HomeRoute,
+                            startDestination = coordinator.detectStartDestination(intent),
                             modifier = Modifier.padding(innerPadding),
                         ) {
                             homeScreen {}
-                            storeScreen { coordinatorStore.onTriggerNavigationEvent(event = it) }
+                            storeScreen { coordinator.onTriggerNavigationEvent(event = it) }
                             lineHubScreen {}
                             moreScreen {}
                         }

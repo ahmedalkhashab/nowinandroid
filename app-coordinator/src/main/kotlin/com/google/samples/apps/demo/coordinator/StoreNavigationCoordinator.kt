@@ -17,7 +17,7 @@ import com.google.samples.apps.demo.feature.store.StoreNavigationEventListener
 import com.google.samples.apps.demo.feature.store.ui.cart.navigation.CartRoute
 import com.google.samples.apps.demo.feature.store.ui.cart.navigation.navigateToCartScreen
 import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.ProductDetailsRoute
-import com.google.samples.apps.demo.feature.welcome.WelcomeEntryActivity
+import com.google.samples.apps.demo.feature.store.ui.productdetails.navigation.navigateToProductDetailsScreen
 import javax.inject.Inject
 
 class StoreNavigationCoordinator @Inject constructor() : StoreNavigationEventListener {
@@ -57,21 +57,9 @@ class StoreNavigationCoordinator @Inject constructor() : StoreNavigationEventLis
                 }
             }
 
-            is OnCartClicked -> when (activity) {
-                is WelcomeEntryActivity -> activity.startActivity(
-                    Intent(activity, StoreEntryActivity::class.java)
-                )
-                is StoreEntryActivity -> navController?.navigateToCartScreen()
-                else -> {}
-            }
+            is OnCartClicked -> navController?.navigateToCartScreen()
 
-            is OnProductItemClicked -> if (activity is WelcomeEntryActivity) {
-                activity.startActivity(
-                    Intent(activity, StoreEntryActivity::class.java).apply {
-                        putExtra("productId", event.productId.toString())
-                    }
-                )
-            }
+            is OnProductItemClicked -> navController?.navigateToProductDetailsScreen(event.productId)
 
             is OnPaymentSuccess -> activity.finish()
         }

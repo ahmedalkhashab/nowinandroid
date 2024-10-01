@@ -39,7 +39,7 @@ class AuthEntryActivity : ComponentActivity() {
                 NiaTheme {
                     NavHost(
                         navController = navController,
-                        startDestination = LoginRoute,
+                        startDestination = coordinator.detectStartDestination(intent),
                     ) {
                         loginRouteScreen { coordinator.onTriggerNavigationEvent(event = it) }
                         registerRouteScreen { coordinator.onTriggerNavigationEvent(event = it) }

@@ -15,11 +15,7 @@ interface WelcomeNavigationEventListener {
 
     fun detectStartDestination(intent: Intent?): Any
 
-    fun onTriggerNavigationEvent(
-        activity: Activity,
-        navController: NavHostController?,
-        event: WelcomeNavigationEvent,
-    )
+    fun onTriggerNavigationEvent(event: WelcomeNavigationEvent)
 }
 
 sealed class WelcomeNavigationEvent {

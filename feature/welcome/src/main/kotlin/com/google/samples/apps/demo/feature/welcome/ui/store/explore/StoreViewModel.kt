@@ -1,4 +1,4 @@
-package com.google.samples.apps.demo.feature.store.ui.explore
+package com.google.samples.apps.demo.feature.welcome.ui.store.explore
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

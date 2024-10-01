@@ -42,7 +42,7 @@ class PaymentEntryActivity : ComponentActivity() {
                     NiaTheme {
                         NavHost(
                             navController = navController,
-                            startDestination = SelectPaymentMethodRoute,
+                            startDestination = coordinator.detectStartDestination(intent),
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             selectPaymentMethodScreen { coordinator.onTriggerNavigationEvent(event = it) }
