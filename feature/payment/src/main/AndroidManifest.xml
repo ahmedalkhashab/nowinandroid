@@ -3,6 +3,16 @@
     <application>
         <activity
             android:name="com.google.samples.apps.demo.feature.payment.PaymentEntryActivity"
-            android:theme="@style/CoreUiTheme.AppDemo" />
+            android:exported="true"
+            android:theme="@style/CoreUiTheme.AppDemo">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:host="payment" />
+                <data android:pathPrefix="/payment/{paymentId}" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

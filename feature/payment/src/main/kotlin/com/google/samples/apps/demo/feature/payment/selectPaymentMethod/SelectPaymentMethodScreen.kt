@@ -112,6 +112,13 @@ private fun SelectPaymentMethodContent(
         ) {
             Text(text = "Add Payment Method")
         }
+
+        Button(
+            onClick = { onNavigation(PaymentNavigationEvent.OnPayWithMadaClick("TransactionId")) },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = "Pay with Mada")
+        }
     }
 }
 

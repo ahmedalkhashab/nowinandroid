@@ -6,10 +6,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavHostController
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnAddPaymentMethodClick
+import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnPayWithMadaClick
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnPaymentCompleted
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEvent.OnSavePaymentMethodClick
 import com.google.samples.apps.demo.feature.payment.PaymentNavigationEventListener
 import com.google.samples.apps.demo.feature.payment.addPaymentMethod.navigation.navigateToAddPaymentMethodScreen
+import com.google.samples.apps.demo.feature.payment.madaPayment.navigation.navigateToMadaPaymentMethodScreen
 import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.SelectPaymentMethodRoute
 import javax.inject.Inject
 
@@ -35,6 +37,7 @@ class PaymentNavigationCoordinator @Inject constructor() : PaymentNavigationEven
         when (event) {
             is OnSavePaymentMethodClick -> navController?.popBackStack()
             is OnAddPaymentMethodClick -> navController?.navigateToAddPaymentMethodScreen()
+            is OnPayWithMadaClick -> navController?.navigateToMadaPaymentMethodScreen(event.paymentId)
             is OnPaymentCompleted -> {
                 // event.paymentMethod // Handle payment completion and result
                 activity.setResult(Activity.RESULT_OK)

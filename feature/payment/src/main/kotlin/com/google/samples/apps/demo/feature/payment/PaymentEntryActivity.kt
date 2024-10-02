@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.google.samples.apps.demo.feature.payment.addPaymentMethod.navigation.addPaymentMethodScreen
+import com.google.samples.apps.demo.feature.payment.madaPayment.navigation.madaPaymentMethodScreen
 import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.SelectPaymentMethodRoute
 import com.google.samples.apps.demo.feature.payment.selectPaymentMethod.navigation.selectPaymentMethodScreen
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
@@ -31,6 +32,9 @@ class PaymentEntryActivity : ComponentActivity() {
         // This also sets up the initial system bar style based on the platform theme
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        // Extract deep link data (if any)
+        val deepLinkUri = intent?.data
+        val paymentId = deepLinkUri?.getQueryParameter("paymentId")
         setContent {
             val navController: NavHostController = rememberNavController()
             coordinator.initialize(
@@ -47,7 +51,13 @@ class PaymentEntryActivity : ComponentActivity() {
                         ) {
                             selectPaymentMethodScreen { coordinator.onTriggerNavigationEvent(event = it) }
                             addPaymentMethodScreen { coordinator.onTriggerNavigationEvent(event = it) }
+                            madaPaymentMethodScreen { coordinator.onTriggerNavigationEvent(event = it) }
                         }
+                    }
+
+                    // Navigate to specific payment screen if deep link contains paymentId
+                    if (paymentId != null) {
+                        coordinator.onTriggerNavigationEvent(PaymentNavigationEvent.OnPayWithMadaClick(paymentId))
                     }
                 }
             }
